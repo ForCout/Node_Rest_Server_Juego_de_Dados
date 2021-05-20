@@ -1,13 +1,13 @@
-const mysql = require("mysql2");
-const dbkeys = require("./dbkeys.js");
+const mongoose = require('mongoose');
 
 
-// Creando conexion a Base de datos
-const conexion = mysql.createConnection({
-  host: dbkeys.host,
-  user: dbkeys.user,
-  password: dbkeys.password,
-  database: dbkeys.database,
+mongoose
+    .connect('mongodb://localhost:27017/dados', { 
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useFindAndModify: false 
 })
+    .then(() => console.log('conexion establecida con MongoDB'))
+    .catch(error => console.error('No se ha podido conectar con MongoDB:', error.message))
 
-module.exports = conexion;
+const db = mongoose.createConnection();

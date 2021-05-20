@@ -1,15 +1,15 @@
 const router = require("express").Router();
 const controller = require("../controller/controller");
-
+const controllerJugador = require("../controller/controllerJugador");
 
 /* ROUTES */
 
 //Crea un jugador
-router.post('/players', controller.insertJugador);
+router.post('/players', controllerJugador.insertJugador);
 
 
 // Modifica el nom del jugador
- router.put('/players', controller.actualizaNombre);
+ router.put('/players', controllerJugador.actualizaNombre);
 
 // Un jugador específic realitza una tirada dels daus.
 router.post("/players/:id/games", controller.tiradaDados);

@@ -1,5 +1,7 @@
-const q = require("../scripts/querys");
 const db = require("../config/dbconexion");
+const Juego = require("../models/juego");
+const jugador = require("../models/jugador");
+const Jugador = require("../models/jugador");
 
 // Jugar al juego de los dados
 const juegoDados = () => {
@@ -8,55 +10,41 @@ const juegoDados = () => {
   let dados = [dado1, dado2];
   return dados;
 };
-//Ingresa un jugador
-const nuevoJugador = (nombre) => {
-  return new Promise((resolve, reject) => {
-    db.query(q.insert, nombre, (err) => {
-      if (!err) {
-        resolve();
-      } else {
-        reject(err);
-      }
-    });
-  });
-};
 
 //Retorna ratios partidas ganadas de todos los jugadores
-const ratioPartidasGanadas = () => {
-  return new Promise((resolve, reject) => {
-    db.query(q.porcentaj, (err, filas) => {
-      if (!err) {
-        if (filas.length > 0) {
-          resolve(filas);
-        } else if (filas.length === 0) {
-          reject(err);
-        }
-      } else {
-        reject(err);
-      }
-    });
-  });
-};
+const ratioPartidasGanadas = async () => {
+  let jugadores = await Jugador.find({});
 
-// Eliminamos las tiradas de un jugador**
-const removePartidas = (idjugador) => {
-  return new Promise((resolve, reject) => {
-    db.query(q.remove, idjugador, (err) => {
-      if (!err) {
-        resolve();
-      } else {
-        reject();
-      }
-    });
-  });
+  let jugadorRatio = [];
+
+  for (let i = 0; i < jugadores.length; i++) {
+    let victorias = await Juego.find({
+      resultado: "Ganas",
+      idJugador: jugadores[i]._id,
+    }).countDocuments();
+    let partidas = await Juego.find({
+      idJugador: jugadores[i]._id,
+    }).countDocuments();
+    if (partidas === 0) continue;
+    let ratio = ((victorias / partidas).toFixed(2) * 100).toFixed();
+    let datos = {
+      Id: jugadores[i]._id,
+      Nombre: jugadores[i].nombre,
+      Porcentaje: ratio + " %",
+    };
+
+    jugadorRatio.push(datos);
+  }
+
+  return jugadorRatio;
 };
 
 // Comrpobamos si existe un jugador mediante el ID
 const checkPlayerId = (id) => {
   return new Promise((resolve, reject) => {
-    db.query(q.checkJugadorId, id, (err, res) => {
+    Jugador.countDocuments({ _id: id }, (err, count) => {
       if (!err) {
-        if (res.length !== 0) {
+        if (count !== 0) {
           resolve(true);
         } else {
           resolve(false);
@@ -67,88 +55,67 @@ const checkPlayerId = (id) => {
     });
   });
 };
+
 //Comprueba si existe un nombre
 const checkJugadorNombre = (nombre) => {
-  return new Promise((reject, resolve) => {
-    db.query(q.checkJugador, nombre, (err, res) => {
-      if (!err) {
-        if (res.length == 0) {
+  try {
+    return new Promise((resolve, reject) => {
+      Jugador.countDocuments({ nombre }, (err, count) => {
+        if (count === 0) {
           resolve(true);
         } else {
-          resolve(false);
+          reject(false);
         }
-      } else {
-        reject();
-      }
+      });
     });
-  });
+  } catch (err) {
+    return err;
+  }
 };
 
-//Actualiza  nombre Jugador
-const update = (nombre, id) => {
-  return new Promise((resolve, reject) => {
-    db.query(q.update, [id, nombre], (err) => {
-      if (!err) {
-        resolve(true);
-      } else {
-        reject(err);
-      }
-    });
-  });
-};
+// Obtenemos ranking
+const allRanking = async () => {
+  try {
+    ratio = await ratioPartidasGanadas();
 
-// Obtenemos ranking 
-const allRanking = () => {
-  return new Promise((resolve, reject) => {
-    db.query(q.allranking, (err, row) => {
-      if (!err) {
-        if (row.length > 0) {
-          resolve(row);
-        } else if (row.length === 0) {
-          reject("No existen jugadores, por favor cree un jugador");
-        }
-      } else {
-        reject(err);
-      }
+    ranking = ratio.sort(function (a, b) {
+      return b.Porcentaje.toLowerCase().localeCompare(
+        a.Porcentaje.toLowerCase()
+      );
     });
-  });
+    return ranking;
+  } catch (err) {
+    return err;
+  }
 };
 
 // Insertar el resultado de lanzar los dados
-const insertPartida = (idjugador) => {
-  return new Promise((resolve, reject) => {
-    let resultado = juegoDados();
-    let result = "";
-
-    if (resultado[0] + resultado[1] === 7) {
-      result = "Ganas";
-    } else {
-      result = "Pierdes";
-    }
-
-    db.query(
-      q.juego,
-      [result, resultado[0], resultado[1], idjugador],
-      (err) => {
-        if (!err) {
-          resolve(resultado[0] + resultado[1]);
-        } else {
-          reject(`Error al tirar los dados, vuelve a intentarlo`);
-        }
-      }
-    );
-  });
+const insertPartida = async (idJugador) => {
+  try {
+    let dados = juegoDados();
+    let resultado = dados[0] + dados[1] === 7 ? "Ganas" : "Pierdes";
+    let juego = new Juego({
+      resultado,
+      dado1: dados[0],
+      dado2: dados[1],
+      idJugador,
+    });
+    return await juego.save();
+  } catch (err) {
+    return err;
+  }
 };
 
 //Lista partidas de un jugador
 const recuperaPartidas = (id) => {
+  
   return new Promise((resolve, reject) => {
-    db.query(q.partidasJugadas, id, (err, filas) => {
+    Juego.find({ idJugador: id }, (err, partidas) => {
       if (err) {
         reject(err);
       }
-      if (filas) {
-        resolve(filas);
+      if (partidas) {
+        resolve({ partidas });
       } else {
         reject(err);
       }
@@ -159,12 +126,10 @@ const recuperaPartidas = (id) => {
 module.exports = {
   ratioPartidasGanadas,
   checkPlayerId,
-  removePartidas,
-  nuevoJugador,
   checkJugadorNombre,
   juegoDados,
   insertPartida,
   recuperaPartidas,
   allRanking,
-  update,
+
 };
