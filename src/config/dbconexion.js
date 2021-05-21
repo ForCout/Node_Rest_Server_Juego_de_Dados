@@ -1,6 +1,5 @@
-const mysql = require("mysql2");
-const dbkeys = require("./dbkeys.js");
-
+const mysql = require('mysql2');
+const dbkeys = require('./dbkeys.js');
 
 // Creando conexion a Base de datos
 const conexion = mysql.createConnection({
@@ -8,6 +7,6 @@ const conexion = mysql.createConnection({
   user: dbkeys.user,
   password: dbkeys.password,
   database: dbkeys.database,
-})
+});
 
 module.exports = conexion;

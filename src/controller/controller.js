@@ -1,11 +1,11 @@
-const servicio = require("../services/services");
+const servicio = require('../services/services');
 
 // Insertamos Jugadores
 
 const insertJugador = async (req, res) => {
-  if (req.body.nombre === "") {
-    await servicio.nuevoJugador("ANONIMO");
-    res.status(201).json({ message: "Jugador con nombre anonimo añadido" });
+  if (req.body.nombre === '') {
+    await servicio.nuevoJugador('ANONIMO');
+    res.status(201).json({ message: 'Jugador con nombre anonimo añadido' });
   } else {
     try {
       resultado = await servicio
@@ -31,13 +31,13 @@ const insertJugador = async (req, res) => {
 //Actualizamos nombre
 const actualizaNombre = async (req, res) => {
   if (!req.body.id) {
-    res.status(400).send({ message: "Debe introducir un id" });
+    res.status(400).send({ message: 'Debe introducir un id' });
   } else {
     try {
       checkId = await servicio.checkPlayerId(req.body.id).catch((e) => e);
 
       if (checkId === false) {
-        res.status(400).json({ message: "El id no es correcto" });
+        res.status(400).json({ message: 'El id no es correcto' });
       }
       checkNombre = await servicio
         .checkJugadorNombre(req.body.nombre)
@@ -69,7 +69,7 @@ const tiradaDados = async (req, res) => {
     });
   } else {
     res.status(404).json({
-      message: "El jugador introducido no exite",
+      message: 'El jugador introducido no exite',
     });
   }
 };
@@ -86,7 +86,7 @@ const deletePartidas = async (req, res) => {
     });
   } else {
     res.status(400).send({
-      error: "No existen jugadores con ese id ",
+      error: 'No existen jugadores con ese id ',
     });
   }
 };
@@ -99,7 +99,7 @@ const player = async (req, res) => {
     });
   } catch (error) {
     res.status(400).send({
-      error: "No existen jugadores, por favor cree un jugador",
+      error: 'No existen jugadores, por favor cree un jugador',
     });
   }
 };
@@ -113,7 +113,7 @@ const listaPartidas = async (req, res) => {
     res.status(200).json(resultado);
   } else {
     res.status(404).json({
-      message: "El jugador introducido no exite",
+      message: 'El jugador introducido no exite',
     });
   }
 };
