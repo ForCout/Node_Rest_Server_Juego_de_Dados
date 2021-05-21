@@ -1,6 +1,6 @@
 const servicio = require("../services/services");
 const Juego = require("../models/juego");
-const Jugador = require("../models/jugador");
+
 
 //Jugamos una partida
 const tiradaDados = async (req, res) => {
