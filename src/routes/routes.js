@@ -5,11 +5,10 @@ const controllerJugador = require("../controller/controllerJugador");
 /* ROUTES */
 
 //Crea un jugador
-router.post('/players', controllerJugador.insertJugador);
-
+router.post("/players", controllerJugador.insertJugador);
 
 // Modifica el nom del jugador
- router.put('/players', controllerJugador.actualizaNombre);
+router.put("/players", controllerJugador.actualizaNombre);
 
 // Un jugador específic realitza una tirada dels daus.
 router.post("/players/:id/games", controller.tiradaDados);
@@ -23,7 +22,7 @@ router.get("/players", controller.player);
 //Retorna el llistat de jugades per un jugador.
 router.get("/players/:id/games", controller.listaPartidas);
 
-//Retorna el ranking mig de tots els jugadors del sistema. 
+//Retorna el ranking mig de tots els jugadors del sistema.
 router.get("/players/ranking", controller.allRanking);
 
 //Retorna el jugador amb pitjor percentatge d’èxit
@@ -31,6 +30,5 @@ router.get("/players/ranking/loser", controller.loser);
 
 //Retorna el jugador amb millor percentatge d’èxit
 router.get("/players/ranking/winner", controller.winner);
-
 
 module.exports = router;
