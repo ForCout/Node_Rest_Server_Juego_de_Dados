@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const autoIncrement = require("mongoose-auto-increment");
+const autoIncrement = require('mongoose-auto-increment');
 
 const jugadorSchema = Schema(
   {
@@ -10,5 +10,5 @@ const jugadorSchema = Schema(
 );
 
 autoIncrement.initialize(mongoose.connection);
-jugadorSchema.plugin(autoIncrement.plugin, "Jugador");
-module.exports = mongoose.model("Jugador", jugadorSchema);
+jugadorSchema.plugin(autoIncrement.plugin, 'Jugador');
+module.exports = mongoose.model('Jugador', jugadorSchema);

@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const juegoSchema = Schema({
@@ -8,4 +8,4 @@ const juegoSchema = Schema({
   idJugador: { type: String, required: true },
 });
 
-module.exports = mongoose.model("Juego", juegoSchema);
+module.exports = mongoose.model('Juego', juegoSchema);

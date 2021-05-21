@@ -1,11 +1,11 @@
-const Jugador = require("../models/jugador.js");
+const Jugador = require('../models/jugador.js');
 
 // Insertamos Jugadores
 const insertJugador = async (req, res) => {
   let jugador = new Jugador();
 
-  if (req.body.nombre === "") {
-    jugador.nombre = req.body.nombre = "ANONIMO";
+  if (req.body.nombre === '') {
+    jugador.nombre = req.body.nombre = 'ANONIMO';
     jugador.save((err, jugadorSave) => {
       if (err)
         res
@@ -39,7 +39,7 @@ const actualizaNombre = async (req, res) => {
   let update = req.body;
   let jugador = new Jugador();
   if (!req.body.id) {
-    res.status(400).send({ message: "Debe introducir un id" });
+    res.status(400).send({ message: 'Debe introducir un id' });
   } else if (
     Jugador.countDocuments({ nombre: req.body.nombre }, (err, count) => {
       if (count === 0) {
