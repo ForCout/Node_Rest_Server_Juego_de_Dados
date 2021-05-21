@@ -1,19 +1,19 @@
-const Jugador = require("../models/jugador.js");
-const servicio = require("../services/services.js")
-const authservicio =require("../services/auth")
+const Jugador = require('../models/jugador.js');
+const servicio = require('../services/services.js');
+const authservicio = require('../services/auth');
 // Insertamos Jugadores
 const insertJugador = async (req, res) => {
   let jugador = new Jugador();
 
-  if (req.body.nombre === "") {
-    jugador.nombre = req.body.nombre = "ANONIMO";
+  if (req.body.nombre === '') {
+    jugador.nombre = req.body.nombre = 'ANONIMO';
     jugador.psw = req.body.psw;
     jugador.save((err, jugadorSave) => {
       if (err)
         res
           .status(500)
           .send({ message: `Error al intentar guardar en BD:${err}` });
-        res.status(200).send({ jugador: jugadorSave });
+      res.status(200).send({ jugador: jugadorSave });
     });
   } else {
     Jugador.countDocuments({ nombre: req.body.nombre }, (err, count) => {
@@ -25,7 +25,7 @@ const insertJugador = async (req, res) => {
             res
               .status(500)
               .send({ message: `Error al intentar guardar en BD:${err}` });
-              res.status(200).send({ jugador: jugadorSave });
+          res.status(200).send({ jugador: jugadorSave });
         });
       } else {
         res.status(501).json({
@@ -42,7 +42,7 @@ const actualizaNombre = async (req, res) => {
   let update = req.body;
   let jugador = new Jugador();
   if (!req.body.id) {
-    res.status(400).send({ message: "Debe introducir un id" });
+    res.status(400).send({ message: 'Debe introducir un id' });
   } else if (
     Jugador.countDocuments({ nombre: req.body.nombre }, (err, count) => {
       if (count === 0) {

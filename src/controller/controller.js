@@ -1,6 +1,6 @@
-const servicio = require("../services/services");
-const Juego = require("../models/juego");
-const Jugador = require("../models/jugador");
+const servicio = require('../services/services');
+const Juego = require('../models/juego');
+const Jugador = require('../models/jugador');
 
 //Jugamos una partida
 const tiradaDados = async (req, res) => {
@@ -47,7 +47,7 @@ const player = async (req, res) => {
     let jugadoresRatio = await servicio.ratioPartidasGanadas();
 
     res.send({
-      "Jugadores y sus porcentajes": jugadoresRatio,
+      'Jugadores y sus porcentajes': jugadoresRatio,
     });
   } catch (error) {
     res.status(400).send({
@@ -66,7 +66,7 @@ const listaPartidas = async (req, res) => {
     res.status(200).json(resultado);
   } else {
     res.status(404).json({
-      message: "El jugador introducido no exite",
+      message: 'El jugador introducido no exite',
     });
   }
 };
