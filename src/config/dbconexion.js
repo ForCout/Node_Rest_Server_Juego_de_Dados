@@ -11,3 +11,8 @@ mongoose
     .catch(error => console.error('No se ha podido conectar con MongoDB:', error.message))
 
 const db = mongoose.createConnection();
+
+module.exports = {
+    db,
+    SECRET_TOKEN: 'mitokenseguro'
+}

@@ -5,6 +5,7 @@ const autoIncrement = require("mongoose-auto-increment");
 const jugadorSchema = Schema(
   {
     nombre: String,
+    psw : String,
   },
   { timestamps: true }
 );

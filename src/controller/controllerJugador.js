@@ -6,6 +6,7 @@ const insertJugador = async (req, res) => {
 
   if (req.body.nombre === "") {
     jugador.nombre = req.body.nombre = "ANONIMO";
+    jugador.psw = req.body.psw;
     jugador.save((err, jugadorSave) => {
       if (err)
         res
@@ -17,6 +18,7 @@ const insertJugador = async (req, res) => {
     Jugador.countDocuments({ nombre: req.body.nombre }, (err, count) => {
       if (count === 0) {
         jugador.nombre = req.body.nombre;
+        jugador.psw = req.body.psw;
         jugador.save((err, jugadorSave) => {
           if (err)
             res

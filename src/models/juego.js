@@ -9,3 +9,4 @@ const juegoSchema = Schema({
 });
 
 module.exports = mongoose.model("Juego", juegoSchema);
+
