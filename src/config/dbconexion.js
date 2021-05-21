@@ -10,4 +10,3 @@ mongoose
     .then(() => console.log('conexion establecida con MongoDB'))
     .catch(error => console.error('No se ha podido conectar con MongoDB:', error.message))
 
-const db = mongoose.createConnection();
