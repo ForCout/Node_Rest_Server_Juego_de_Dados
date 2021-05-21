@@ -1,6 +1,5 @@
 const db = require("../config/dbconexion");
 const Juego = require("../models/juego");
-const jugador = require("../models/jugador");
 const Jugador = require("../models/jugador");
 
 // Jugar al juego de los dados
