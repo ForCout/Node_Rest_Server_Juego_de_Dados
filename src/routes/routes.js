@@ -20,7 +20,7 @@ router.post("/players/:id/games",auth, controller.tiradaDados);
 router.delete("/players/:id/games",auth, controller.deletePartidas);
 
 //Retorna el llistat de tots els jugadors del sistema amb el seu percentatge mig d’èxits
-router.get("/players", controller.player);
+router.get("/players",auth, controller.player);
 
 //Retorna el llistat de jugades per un jugador.
 router.get("/players/:id/games",auth, controller.listaPartidas);
@@ -35,7 +35,7 @@ router.get("/players/ranking/loser",auth, controller.loser);
 router.get("/players/ranking/winner",auth, controller.winner);
 
 //Ruta para hacer login y generar token 
-//router.post("/login", controllerAuth)
+router.post("/login", controllerAuth)
 
 
 module.exports = router;

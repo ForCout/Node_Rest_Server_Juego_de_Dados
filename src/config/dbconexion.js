@@ -13,6 +13,6 @@ mongoose
 const db = mongoose.createConnection();
 
 module.exports = {
-    db,
+    
     SECRET_TOKEN: 'mitokenseguro'
 }
