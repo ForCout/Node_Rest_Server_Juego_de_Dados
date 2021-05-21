@@ -1,5 +1,6 @@
 const Jugador = require("../models/jugador.js");
-
+const servicio = require("../services/services.js")
+const authservicio =require("../services/auth")
 // Insertamos Jugadores
 const insertJugador = async (req, res) => {
   let jugador = new Jugador();
@@ -12,7 +13,7 @@ const insertJugador = async (req, res) => {
         res
           .status(500)
           .send({ message: `Error al intentar guardar en BD:${err}` });
-      res.status(200).send({ jugador: jugadorSave });
+        res.status(200).send({ jugador: jugadorSave });
     });
   } else {
     Jugador.countDocuments({ nombre: req.body.nombre }, (err, count) => {
@@ -24,7 +25,7 @@ const insertJugador = async (req, res) => {
             res
               .status(500)
               .send({ message: `Error al intentar guardar en BD:${err}` });
-          res.status(200).send({ jugador: jugadorSave });
+              res.status(200).send({ jugador: jugadorSave });
         });
       } else {
         res.status(501).json({

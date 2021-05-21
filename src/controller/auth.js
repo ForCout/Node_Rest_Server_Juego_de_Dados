@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Jugador = require('../models/jugador');
-const servicio = require('../services/services');
+const servicio = require('../services/auth');
 
 
 // function singUp(req, res ) {
@@ -20,15 +20,22 @@ const servicio = require('../services/services');
 
 function login(req, res) {
 
-    Jugador.find({nombre: req.body.nombre, psw: req.body.psw }, (err, jugador) => {
-        if (err) res.status(500).send({ message: 'Error al logearse el jugador' })
-        if (!jugador) res.status(404).send({ message: 'No existe el usuario ' })
-        
-        req.jugador = jugador
-        res.status(200).send({
+    Jugador.find({ nombre: req.body.nombre, psw: req.body.psw }, (err, jugador) => {
+        if (err) {
+            res.status(500).send({ message: 'Error al logearse el jugador' })
+        } else if(jugador.length === 0)   { 
+            
+            res.status(404).send({ message: 'No existe el usuario, registrese primero ' })
+
+        }else {
+            req.jugador = jugador
+            res.status(200).send({
             message: ' Te has logeado correctamente',
             token: servicio.createToken(jugador)
         }) 
+        }
+        
+        
     })
     
 }

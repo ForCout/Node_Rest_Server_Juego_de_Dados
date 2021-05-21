@@ -1,3 +1,4 @@
+const db = require("../config/dbconexion");
 const Juego = require("../models/juego");
 const Jugador = require("../models/jugador");
 
