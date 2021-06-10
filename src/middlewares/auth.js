@@ -2,7 +2,7 @@ const servicio = require('../services/auth');
 
 function isAuth(req, res, next) {
   if (!req.headers.authorization) {
-    res.status(403).send({ message: 'No tiene autorización' });
+    res.status(403).json({ message: 'No tiene autorización' });
   }
 
   const token = req.headers.authorization.split(' ')[1];

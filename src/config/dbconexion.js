@@ -15,4 +15,5 @@ const db = mongoose.createConnection();
 
 module.exports = {
   SECRET_TOKEN: 'mitokenseguro',
+  db,
 };

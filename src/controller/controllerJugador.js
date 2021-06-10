@@ -12,8 +12,8 @@ const insertJugador = async (req, res) => {
       if (err)
         res
           .status(500)
-          .send({ message: `Error al intentar guardar en BD:${err}` });
-      res.status(200).send({ jugador: jugadorSave });
+          .json({ message: `Error al intentar guardar en BD:${err}` });
+      res.status(200).json({ jugador: jugadorSave });
     });
   } else {
     Jugador.countDocuments({ nombre: req.body.nombre }, (err, count) => {
@@ -24,7 +24,7 @@ const insertJugador = async (req, res) => {
           if (err)
             res
               .status(500)
-              .send({ message: `Error al intentar guardar en BD:${err}` });
+              .json({ message: `Error al intentar guardar en BD:${err}` });
           res.status(200).send({ jugador: jugadorSave });
         });
       } else {
@@ -42,7 +42,7 @@ const actualizaNombre = async (req, res) => {
   let update = req.body;
   let jugador = new Jugador();
   if (!req.body.id) {
-    res.status(400).send({ message: 'Debe introducir un id' });
+    res.status(400).json({ message: 'Debe introducir un id' });
   } else if (
     Jugador.countDocuments({ nombre: req.body.nombre }, (err, count) => {
       if (count === 0) {
@@ -50,10 +50,10 @@ const actualizaNombre = async (req, res) => {
           if (err)
             res
               .status(500)
-              .send({ message: `Error al actualizar usuario:${err}` });
+              .json({ message: `Error al actualizar usuario:${err}` });
 
           jugador.save(jugadorUpdate);
-          res.status(200).send({
+          res.status(200).json({
             message: `El nuevo nombre del id: ${jugadorUpdate.id} es ${req.body.nombre}`,
           });
         });

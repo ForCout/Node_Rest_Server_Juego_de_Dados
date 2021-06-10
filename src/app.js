@@ -1,8 +1,8 @@
 const routes = require('./routes/routes');
-
+//const mongoose = require('mongoose');
 const express = require('express');
 const app = express();
-const mongoose = require('mongoose');
+
 
 // Middlewares
 app.use(express.urlencoded({ extended: true }));

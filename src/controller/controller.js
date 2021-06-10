@@ -11,16 +11,16 @@ const tiradaDados = async (req, res) => {
     if (check === true) {
       juego = await servicio.insertPartida(id);
 
-      res.status(200).send({
+      res.status(200).json({
         message: `Resultado: ${juego.dado1 + juego.dado2} = ${juego.resultado}`,
       });
     } else {
-      res.status(404).send({ message: `El jugador introducido no existe` });
+      res.status(404).json({ message: `El jugador introducido no existe` });
     }
   } catch (error) {
     res
       .status(500)
-      .send({ message: `Se ha producido un error en el servidor ` });
+      .json({ message: `Se ha producido un error en el servidor ` });
   }
 };
 
@@ -31,13 +31,13 @@ const deletePartidas = async (req, res) => {
 
     let resultado = await Juego.deleteMany({ idJugador: id });
     if (resultado.deletedCount === 0)
-      res.status(404).send(`Este id no tiene partidas o no  existe`);
+      res.status(404).json(`Este id no tiene partidas o no  existe`);
 
-    res.status(200).send({
+    res.status(200).json({
       message: `Borradas todas las partidas del jugador:  ${id}`,
     });
   } catch (error) {
-    res.status(400).send({ message: `Se ha producido un error` });
+    res.status(400).json({ message: `Se ha producido un error` });
   }
 };
 
@@ -46,11 +46,11 @@ const player = async (req, res) => {
   try {
     let jugadoresRatio = await servicio.ratioPartidasGanadas();
 
-    res.send({
+    res.json({
       'Jugadores y sus porcentajes': jugadoresRatio,
     });
   } catch (error) {
-    res.status(400).send({
+    res.status(400).json({
       success: false,
       error: error,
     });
@@ -78,14 +78,14 @@ const allRanking = async (req, res) => {
   } catch (e) {
     res
       .status(500)
-      .send({ message: `Se ha producido un error en el servidor  ` });
+      .json({ message: `Se ha producido un error en el servidor  ` });
   }
 };
 //Devuelve el mejor del ranking
 const winner = async (req, res) => {
   try {
     const resultado = await servicio.allRanking();
-    res.status(200).send(resultado[0]);
+    res.status(200).json(resultado[0]);
   } catch (e) {
     res.status(500).json({ message: e });
   }
@@ -94,7 +94,7 @@ const winner = async (req, res) => {
 const loser = async (req, res) => {
   try {
     const resultado = await servicio.allRanking();
-    res.status(200).send(resultado[resultado.length - 1]);
+    res.status(200).json(resultado[resultado.length - 1]);
   } catch (e) {
     res.status(500).json({ message: e });
   }
