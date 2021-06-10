@@ -13,7 +13,7 @@ const update = 'UPDATE jugador SET nombre = ? WHERE id = ?;';
 
 // Insertamos un juego al tirar los dados
 const juego =
-  "INSERT INTO juego (resultado, dado1, dado2, idjugador)VALUES (?,'?',?,?);";
+  "INSERT INTO juego (resultado, dado1, dado2, idjugador)VALUES ('?',?,?,?);";
 
 // Eliminamos las partidas del jugador seleccionado**
 const remove = 'DELETE FROM juego WHERE idjugador = ?;';

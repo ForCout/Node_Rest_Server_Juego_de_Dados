@@ -1,5 +1,5 @@
-const q = require("../scripts/querys");
-const db = require("../config/dbconexion");
+const q = require('../scripts/querys');
+const db = require('../config/dbconexion');
 
 // Jugar al juego de los dados
 const juegoDados = () => {
@@ -97,7 +97,7 @@ const update = (nombre, id) => {
   });
 };
 
-// Obtenemos ranking 
+// Obtenemos ranking
 const allRanking = () => {
   return new Promise((resolve, reject) => {
     db.query(q.allranking, (err, row) => {
@@ -105,7 +105,7 @@ const allRanking = () => {
         if (row.length > 0) {
           resolve(row);
         } else if (row.length === 0) {
-          reject("No existen jugadores, por favor cree un jugador");
+          reject('No existen jugadores, por favor cree un jugador');
         }
       } else {
         reject(err);
@@ -118,12 +118,12 @@ const allRanking = () => {
 const insertPartida = (idjugador) => {
   return new Promise((resolve, reject) => {
     let resultado = juegoDados();
-    let result = "";
+    let result = '';
 
     if (resultado[0] + resultado[1] === 7) {
-      result = "Ganas";
+      result = 'Ganas';
     } else {
-      result = "Pierdes";
+      result = 'Pierdes';
     }
 
     db.query(

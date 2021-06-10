@@ -5,7 +5,7 @@ const servicio = require('../services/services');
 const insertJugador = async (req, res) => {
   if (req.body.nombre === '') {
     await servicio.nuevoJugador('ANONIMO');
-    res.status(201).json({ message: 'Jugador con nombre anonimo añadido' });
+    res.status(201).json({ message: 'Jugador con nombre anonimo añadido', jugador: req.body });
   } else {
     try {
       resultado = await servicio
@@ -16,6 +16,7 @@ const insertJugador = async (req, res) => {
         await servicio.nuevoJugador(req.body.nombre);
         res.status(201).json({
           message: `Jugador con nombre:${req.body.nombre} añadido.`,
+          jugador: req.body
         });
       } else {
         res.status(501).json({
@@ -130,7 +131,7 @@ const allRanking = async (req, res) => {
 const winner = async (req, res) => {
   try {
     const resultado = await servicio.allRanking();
-    res.status(200).send(resultado[0]);
+    res.status(200).json(resultado[0]);
   } catch (e) {
     res.status(500).json({ message: e });
   }
@@ -139,7 +140,7 @@ const winner = async (req, res) => {
 const loser = async (req, res) => {
   try {
     const resultado = await servicio.allRanking();
-    res.status(200).send(resultado[resultado.length - 1]);
+    res.status(200).json(resultado[resultado.length - 1]);
   } catch (e) {
     res.status(500).json({ message: e });
   }
