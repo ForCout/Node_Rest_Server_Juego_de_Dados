@@ -67,6 +67,8 @@ const checkPlayerId = (id) => {
     });
   });
 };
+
+
 //Comprueba si existe un nombre
 const checkJugadorNombre = (nombre) => {
   return new Promise((reject, resolve) => {
@@ -131,13 +133,17 @@ const insertPartida = (idjugador) => {
       [result, resultado[0], resultado[1], idjugador],
       (err) => {
         if (!err) {
-          resolve(resultado[0] + resultado[1]);
-        } else {
-          reject(`Error al tirar los dados, vuelve a intentarlo`);
-        }
+          
+            resolve({ resultado, result });
+          } else {
+            reject(err,`Error al tirar los dados, vuelve a intentarlo`);
+          }
+        
+          
+        
       }
-    );
-  });
+    )
+  })
 };
 
 //Lista partidas de un jugador
@@ -167,4 +173,5 @@ module.exports = {
   recuperaPartidas,
   allRanking,
   update,
+
 };

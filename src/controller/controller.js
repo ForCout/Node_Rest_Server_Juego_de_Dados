@@ -66,7 +66,10 @@ const tiradaDados = async (req, res) => {
   if (existe === true) {
     result = await servicio.insertPartida(id);
     res.status(201).json({
-      message: `Resultado partida:${result}`,
+      message: `Resultado partida:`,
+      dado_1: result.resultado[0],
+      dado_2: result.resultado[1],
+      Resultado:result.result
     });
   } else {
     res.status(404).json({
@@ -80,14 +83,20 @@ const deletePartidas = async (req, res) => {
   let id = req.params.id;
 
   resultado = await servicio.checkPlayerId(id);
-  if (resultado === true) {
+  partidas = await servicio.recuperaPartidas(id)
+  if (resultado === true && partidas.length > 0) {
     await servicio.removePartidas(id);
-    res.status(201).json({
+    res.status(200).json({
       message: `Se han eliminado todas las tiradas del jugador con id ${id}`,
     });
+  } else if  (resultado === true && partidas.length === 0){
+   
+    res.status(200).json({
+      message: `El jugador con id ${id} no tiene partidas que borrar`,
+    });
   } else {
-    res.status(400).send({
-      error: 'No existen jugadores con ese id ',
+    res.status(200).send({
+      message: 'No existen jugadores con ese id ',
     });
   }
 };

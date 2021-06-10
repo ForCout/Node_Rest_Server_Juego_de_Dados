@@ -13,7 +13,7 @@ const update = 'UPDATE jugador SET nombre = ? WHERE id = ?;';
 
 // Insertamos un juego al tirar los dados
 const juego =
-  "INSERT INTO juego (resultado, dado1, dado2, idjugador)VALUES ('?',?,?,?);";
+  `INSERT INTO juego (resultado, dado1, dado2, idjugador)VALUES (?,?,?,?);`;
 
 // Eliminamos las partidas del jugador seleccionado**
 const remove = 'DELETE FROM juego WHERE idjugador = ?;';
@@ -29,7 +29,7 @@ const porcentaj = `
 `;
 
 // Obtenemos todas las partidas de un jugador
-const partidasJugadas = 'SELECT * FROM juego WHERE idjugador=?ORDER BY id ASC;';
+const partidasJugadas = 'SELECT * FROM juego WHERE idjugador = ? ORDER BY id ASC;';
 
 // Obtenemos el porcentaje de todas las partidas ganadas de todos los usuarios ordenadas de mejor a peor
 const allranking = `

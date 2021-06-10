@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS `dados`.`juego` (
     `id` INT  PRIMARY KEY AUTO_INCREMENT,
     `resultado` ENUM('GANAS', 'PIERDES') NOT NULL,
     `dado1` INT NOT NULL ,
-    `dados2` INT NOT NULL ,
+    `dado2` INT NOT NULL ,
     `idjugador` INT ,
     FOREIGN KEY (`idjugador`) REFERENCES `dados`.`jugador`(`id`)
 );
