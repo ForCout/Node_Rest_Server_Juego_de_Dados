@@ -10,9 +10,13 @@ const tiradaDados = async (req, res) => {
     if (check === true) {
       juego = await servicio.insertPartida(id);
 
-      res.status(200).send({
-        message: `Resultado: ${juego.dado1 + juego.dado2} = ${juego.resultado}`,
-      });
+      res.status(200).json({
+        message: 'Resultado',
+        Dado_1: juego.dado1,
+        Dado_2: juego.dado2,
+       Resultado: juego.resultado 
+    })
+      
     } else {
       res.status(404).send({ message: `El jugador introducido no existe` });
     }
@@ -30,7 +34,7 @@ const deletePartidas = async (req, res) => {
 
     let resultado = await Juego.deleteMany({ idJugador: id });
     if (resultado.deletedCount === 0)
-      res.status(404).send(`Este id no tiene partidas o no  existe`);
+      res.status(400).send(`Este id no tiene partidas o no  existe`);
 
     res.status(200).send({
       message: `Borradas todas las partidas del jugador:  ${id}`,

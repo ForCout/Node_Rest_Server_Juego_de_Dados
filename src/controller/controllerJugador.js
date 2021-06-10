@@ -25,7 +25,7 @@ const insertJugador = async (req, res) => {
           res.status(200).send({ jugador: jugadorSave });
         });
       } else {
-        res.status(501).json({
+        res.status(200).json({
           message: `El jugador '${req.body.nombre}' ya existe.`,
         });
       }
@@ -39,7 +39,7 @@ const actualizaNombre = async (req, res) => {
   let update = req.body;
   let jugador = new Jugador();
   if (!req.body.id) {
-    res.status(400).send({ message: 'Debe introducir un id' });
+    res.status(200).send({ message: 'Debe introducir un id' });
   } else if (
     Jugador.countDocuments({ nombre: req.body.nombre }, (err, count) => {
       if (count === 0) {
