@@ -1,4 +1,4 @@
-# Node_Rest_Server_Mysql
+# Node_Rest_Juedo_de_Dados
 Exercicies sprint 4 Dice Game of the IT Academy course
 Itinerary Nodejs
 
@@ -27,6 +27,7 @@ Leave the previous terminal running and open a new one.<br>
 
 # Endpoints 
 URL’s:
+- POST: /login : genera un token 
 - POST: /players : crea un jugador
 - PUT /players : modifica el nom del jugador
 - POST /players/{id}/games/ : un jugador específic realitza una tirada dels daus.
@@ -36,4 +37,24 @@ URL’s:
 - GET /players/ranking: retorna el ranking mig de tots els jugadors del sistema. És a dir, el percentatge mig d’èxits.
 - GET /players/ranking/loser: retorna el jugador amb pitjor percentatge d’èxit
 - GET /players/ranking/winner: retorna el jugador amb pitjor percentatge d’èxit
+
+## Extra
+
+To create users you must go to Postman, select the POST path http://localhost:3000/players body, x-www-form-urlencoded
+key: name, value: whatever you want.
+
+To modify the name you must go to the following PUT path http://localhost:3000/players 
+body, x-www-form-urlencoded
+key: id, value: must be an existing id
+key: name, value: the name must match the id
+
+JWT
+To create a token you must go to the following path 
+POST http://localhost:3000/login 
+body, x-www-form-urlencoded
+key: name, value: the name must not exist in the Mongo database
+key: psw, value: whatever you like
+This process will validate your login and generate a token, copy that token and go to Headers.
+key: authorization, value: Bearer leave a space and enter the token.
+You are now authorized to use all the routes
 
