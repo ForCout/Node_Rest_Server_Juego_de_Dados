@@ -1,4 +1,4 @@
-# Node_Rest_Server_Mysql
+# Node_Rest_Juedo_de_Dados
 Exercicies sprint 4 Dice Game of the IT Academy course
 Itinerary Nodejs
 
