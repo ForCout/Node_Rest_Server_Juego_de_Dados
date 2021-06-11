@@ -6,8 +6,9 @@ const auth = require('../middlewares/auth');
 
 /* ROUTES */
 
+
 //Crea un jugador
-router.post('/players', controllerJugador.insertJugador);
+router.post('/players',auth, controllerJugador.insertJugador);
 
 // Modifica el nom del jugador
 router.put('/players', auth, controllerJugador.actualizaNombre);
