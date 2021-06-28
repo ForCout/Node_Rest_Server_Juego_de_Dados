@@ -20,12 +20,14 @@ const remove = 'DELETE FROM juego WHERE idjugador = ?;';
 
 // Obtenemos el porcentaje de partidas ganadas de los jugadores
 const porcentaj = `
-    SELECT j.id as id, j.nombre as Nombre,
-    COUNT(ju.resultado) 'Partidas jugadas',
-    ROUND(100 * SUM(ju.resultado = 'Ganas') / COUNT(ju.resultado)) 'Porcentaje partidas ganadas'
-    FROM juego ju
-    JOIN jugador j ON ju.idjugador = j.id
-    GROUP BY j.id;
+SELECT j.id as id, j.nombre as Nombre,
+COUNT(ju.resultado) 'Partidas jugadas',
+ROUND(100 * SUM(ju.resultado = 'Ganas') / COUNT(ju.resultado) ) 'Porcentaje partidas ganadas'
+FROM juego ju
+right JOIN jugador j ON ju.idjugador = j.id
+GROUP BY j.id
+ORDER BY (100 * SUM(ju.resultado = 'Ganas') / COUNT(ju.resultado))desc;
+
 `;
 
 // Obtenemos todas las partidas de un jugador
@@ -37,7 +39,7 @@ SELECT j.id as id, j.nombre as Nombre,
 COUNT(ju.resultado) 'Partidas jugadas',
 ROUND(100 * SUM(ju.resultado = 'Ganas') / COUNT(ju.resultado)) 'Porcentaje partidas ganadas'
 FROM juego ju
-JOIN jugador j ON ju.idjugador = j.id
+RIGHT JOIN jugador j ON ju.idjugador = j.id
 GROUP BY j.id
 ORDER BY (100 * SUM(ju.resultado = 'Ganas') / COUNT(ju.resultado))desc;
 `;

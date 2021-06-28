@@ -26,7 +26,7 @@ const ratioPartidasGanadas = () => {
   return new Promise((resolve, reject) => {
     db.query(q.porcentaj, (err, filas) => {
       if (!err) {
-        if (filas.length > 0) {
+        if (filas.length >= 0 ) {
           resolve(filas);
         } else if (filas.length === 0) {
           reject(err);
