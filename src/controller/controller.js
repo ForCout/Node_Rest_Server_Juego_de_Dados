@@ -49,7 +49,7 @@ const player = async (req, res) => {
   try {
     let jugadoresRatio = await servicio.ratioPartidasGanadas();
 
-    res.send({
+    res.json({
       'Jugadores y sus porcentajes': jugadoresRatio,
     });
   } catch (error) {
