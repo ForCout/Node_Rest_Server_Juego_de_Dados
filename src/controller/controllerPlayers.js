@@ -24,7 +24,7 @@ const insertJugador = async (req, res) => {
           jugador: req.body,
         });
       } else {
-        res.status(501).json({
+        res.status(200).json({
           message: `El jugador '${req.body.nombre}' ya existe.`,
         });
       }
@@ -50,11 +50,11 @@ const actualizaNombre = async (req, res) => {
         .catch((e) => e);
       if (checkNombre === true) {
         await servicio.update(req.body.id, req.body.nombre);
-        res.status(201).json({
+        res.status(200).json({
           message: `Actualizado ${req.body.nombre}.`,
         });
       } else {
-        res.status(501).json({
+        res.status(200).json({
           message: `El nombre:${req.body.nombre} ya existe, introduzca otro.`,
         });
       }
