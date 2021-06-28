@@ -28,7 +28,7 @@ const insertJugador = async (req, res) => {
           res.status(200).send({ jugador: jugadorSave });
         });
       } else {
-        res.status(501).json({
+        res.status(200).json({
           message: `El jugador '${req.body.nombre}' ya existe.`,
         });
       }
@@ -58,7 +58,7 @@ const actualizaNombre = async (req, res) => {
           });
         });
       } else {
-        res.status(501).json({
+        res.status(200).json({
           message: `El nombre:${req.body.nombre} ya existe, introduzca otro.`,
         });
       }

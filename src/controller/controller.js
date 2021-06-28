@@ -37,7 +37,7 @@ const deletePartidas = async (req, res) => {
       message: `Borradas todas las partidas del jugador:  ${id}`,
     });
   } catch (error) {
-    res.status(400).json({ message: `Se ha producido un error` });
+    res.status(500).json({ message: `Se ha producido un error` });
   }
 };
 
