@@ -24,12 +24,15 @@ const ratioPartidasGanadas = async () => {
     let partidas = await Juego.find({
       idJugador: jugadores[i]._id,
     }).countDocuments();
-    if (partidas === 0) continue;
+    
     let ratio = ((victorias / partidas).toFixed(2) * 100).toFixed();
+    if (ratio === 'NaN') {
+      ratio = ' ';
+    }
     let datos = {
       Id: jugadores[i]._id,
       Nombre: jugadores[i].nombre,
-      Porcentaje: ratio + " %",
+      Porcentaje: ratio + " ",
     };
 
     jugadorRatio.push(datos);
